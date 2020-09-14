@@ -21,7 +21,8 @@ const http = require("http");
 //   });
 // });
 // console.log("Will Read File!!!!");
-
+const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
+const dataObj = JSON.parse(data);
 ///////////////////////////
 // SERVER
 const server = http.createServer((req, res) => {
@@ -30,6 +31,9 @@ const server = http.createServer((req, res) => {
     res.end("This is overview page");
   } else if (pathName === "/product") {
     res.end("This is Product page");
+  } else if (pathName === "/api") {
+    res.writeHead(200, { "Content-type": "application/json" });
+    res.end(data);
   } else {
     res.writeHead(404, {
       "Content-type": "text/html",
