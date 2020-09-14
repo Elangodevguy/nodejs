@@ -25,7 +25,18 @@ const http = require("http");
 ///////////////////////////
 // SERVER
 const server = http.createServer((req, res) => {
-  res.end("Hello from the node server");
+  const pathName = req.url;
+  if (pathName === "/overview" || pathName === "/") {
+    res.end("This is overview page");
+  } else if (pathName === "/product") {
+    res.end("This is Product page");
+  } else {
+    res.writeHead(404, {
+      "Content-type": "text/html",
+      "my-own": "Elango",
+    });
+    res.end("<h1>Page not found</h1>");
+  }
 });
 
 server.listen(8000, "127.0.0.1", () => {
