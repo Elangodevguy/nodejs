@@ -1,5 +1,6 @@
 const fs = require("fs");
 const http = require("http");
+const url = require("url");
 ///////////////////////////
 // FILES
 // Blocking-synchronous way
@@ -52,20 +53,24 @@ const dataObj = JSON.parse(data);
 ///////////////////////////
 // SERVER
 const server = http.createServer((req, res) => {
-  const pathName = req.url;
+  // const pathname = req.url;
+  const { query, pathname } = url.parse(req.url, true);
   // Overview Page
-  if (pathName === "/overview" || pathName === "/") {
+  if (pathname === "/overview" || pathname === "/") {
     const cards = dataObj.map((el) => replaceTemplate(tempCard, el)).join("");
     const cardsHtml = tempOverview.replace(/{%CARDS%}/g, cards);
     res.writeHead(200, { "Content-type": "text/html" });
     res.end(cardsHtml);
   }
   // Product Page
-  else if (pathName === "/product") {
-    res.end("This is Product page");
+  else if (pathname === "/product") {
+    const product = dataObj[query.id];
+    const output = replaceTemplate(tempProduct, product);
+    res.writeHead(200, { "Content-type": "text/html" });
+    res.end(output);
   }
   // API
-  else if (pathName === "/api") {
+  else if (pathname === "/api") {
     res.writeHead(200, { "Content-type": "application/json" });
     res.end(data);
   }
