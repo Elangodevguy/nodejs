@@ -1,6 +1,7 @@
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
+const replaceTemplate = require("./modules/replaceTemplate");
 ///////////////////////////
 // FILES
 // Blocking-synchronous way
@@ -22,20 +23,6 @@ const url = require("url");
 //   });
 // });
 // console.log("Will Read File!!!!");
-const replaceTemplate = (template, element) => {
-  let output = template.replace(/{%NAME%}/g, element.productName);
-  output = output.replace(/{%IMAGE%}/g, element.image);
-  output = output.replace(/{%FROM%}/g, element.from);
-  output = output.replace(/{%NUTRIENTS%}/g, element.nutrients);
-  output = output.replace(/{%QUANTITY%}/g, element.quantity);
-  output = output.replace(/{%PRICE%}/g, element.price);
-  output = output.replace(/{%DESCRIPTION%}/g, element.description);
-  output = output.replace(/{%ID%}/g, element.id);
-
-  if (!element.organic)
-    output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
-  return output;
-};
 const tempOverview = fs.readFileSync(
   `${__dirname}/templates/template-overview.html`,
   "utf-8"
