@@ -8,5 +8,7 @@
   },
   "author": "Elang",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "slugify": "^1.4.5"
+  }
 }
