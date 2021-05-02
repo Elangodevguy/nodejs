@@ -34,7 +34,7 @@ const getDogPic = async () => {
         console.log(err);
     }
 };
-
+getDogPic()
 // readFilePro(`${__dirname}/dog.txt`)
 //     .then(data => {
 //         console.log(`Breed: ${data}`);
