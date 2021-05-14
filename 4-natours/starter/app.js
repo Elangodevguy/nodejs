@@ -1,8 +1,10 @@
 const fs = require('fs');
 const express = require('express')
+const morgan = require('morgan')
 
 const app = express()
 app.use(express.json())
+app.use(morgan('dev'))
 
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`))
 
@@ -79,6 +81,33 @@ const deleteTour = (req, res) => {
     }
 }
 
+const getAllUsers = (req, res) => {
+    res.status(500).json({
+        success: 'error',
+    })
+}
+const getUser = (req, res) => {
+    res.status(500).json({
+        success: 'error',
+    })
+}
+
+const createUser = (req, res) => {
+    res.status(500).json({
+        success: 'error',
+    })
+}
+
+const updateUser = (req, res) => {
+    res.status(500).json({
+        success: 'error',
+    })
+}
+const deleteUser = (req, res) => {
+    res.status(500).json({
+        success: 'error',
+    })
+}
 // app.get('/api/v1/tours', getAllTours)
 // app.post('/api/v1/tours', createTour)
 // app.get('/api/v1/tours/:id', getTour)
@@ -86,8 +115,10 @@ const deleteTour = (req, res) => {
 // app.delete('/api/v1/tours/:id', deleteTour)
 
 app.route('/api/v1/tours').get(getAllTours).post(createTour)
-app.route('api/v1/tours/:id').get(getTour).patch(updateTour).delete(deleteTour)
+app.route('/api/v1/tours/:id').get(getTour).patch(updateTour).delete(deleteTour)
 
+app.route('/api/v1/users').get(getAllUsers).post(createUser)
+app.route('/api/v1/users/:id').get(getUser).patch(updateUser).delete(deleteUser)
 
 const port = 8000
 app.listen(port, () => {
