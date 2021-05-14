@@ -39,14 +39,30 @@ app.get('/api/v1/tours/:id', (req, res) => {
             status: 'fail',
             message: 'No tour found'
         })
+    } else {
+        res.status(200).json({
+            status: 'success',
+            data: {
+                tour
+            }
+        })
     }
+})
 
-    res.status(200).json({
-        status: 'success',
-        data: {
-            tour
-        }
-    })
+app.patch('/api/v1/tours/:id', (req, res) => {
+    if (req.params.id * 1 > tours.length) {
+        res.status(404).json({
+            status: 'fail',
+            message: 'ID not found'
+        })
+    } else {
+        res.status(200).json({
+            status: 'success',
+            data: {
+                tour: '<Updated tour here>'
+            }
+        })
+    }
 })
 const port = 8000
 app.listen(port, () => {
